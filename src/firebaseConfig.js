@@ -1,19 +1,23 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA-jqeEOC8CqkrABOHxa1fyiICTRa8am_I",
-  authDomain: "fir-frontend-6c7a8.firebaseapp.com",
-  projectId: "fir-frontend-6c7a8",
-  storageBucket: "fir-frontend-6c7a8.appspot.com",
-  messagingSenderId: "4256055537",
-  appId: "1:4256055537:web:9c15d6ff44fcce3a7d6950",
-  measurementId: "G-20DN2GQRHH",
+  apiKey: process.env.REACT_APP_FIREBASE_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID,
+  appId: process.env.REACT_APP_MESSAGING_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-export const database = getFirestore(app);
 
-export default app;
+const firestoreDB = firebase.initializeApp(firebaseConfig, {
+  experimentalForceLongPolling: true, // this line
+  useFetchStreams: false, // and this line
+});
+
+export default firestoreDB;
